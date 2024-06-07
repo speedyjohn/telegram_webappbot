@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Telegram Web App</title>
+    <script>
+        async function updateString() {
+            const response = await fetch('/get_string_data');
+            const data = await response.json();
+            if (data.status === 'success') {
+                document.getElementById('string').innerText = data.data.join(', ');
+            }
+        }
+
+        // Периодическое обновление данных
+        setInterval(updateString, 5000); // каждые 5 секунд
+    </script>
 </head>
 <body>
-    <div class="outer">
-        <h1 class="title">Title</h1>
-        <div class="inner">
-            <h1 class="inner__title">Inner Title</h1>
-            <h2 class="inner__hint">Inner hint</h2>
-            <a href="#" class="inner__link">Inner link</a>
-            <button class="inner__btn">Click</button>
-        </div>
-    </div>
+    <h1 id="string"></h1>
 </body>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </html>
